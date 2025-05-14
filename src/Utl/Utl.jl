@@ -65,7 +65,7 @@ Dict{String, Any} with 3 entries:
 function to_flatten(
     data::AbstractDict{K,V};
     delimiter::AbstractString = "_",
-    dict_type::Type{<:AbstractDict} = Dict{String,Any},
+    dict_type::Type{<:AbstractDict} = ODict{String,Any},
 ) where {K,V}
     result = dict_type()
     for (key, value) in data
@@ -83,7 +83,7 @@ end
 function to_flatten(
     data::T;
     delimiter::AbstractString = "_",
-    dict_type::Type{<:AbstractDict} = Dict{String,Any},
+    dict_type::Type{<:AbstractDict} = ODict{String,Any},
 ) where {T}
     result = dict_type()
     for key in fieldnames(T)

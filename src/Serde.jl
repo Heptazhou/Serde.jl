@@ -1,5 +1,7 @@
 module Serde
 
+using Exts: ODict, OSet
+
 function deser end
 function parse_value end
 

@@ -6,22 +6,12 @@ DocMeta.setdocmeta!(Serde, :DocTestSetup, :(using Serde); recursive = true)
 makedocs(;
     modules = [Serde],
     sitename = "Serde.jl",
-    format = Documenter.HTML(;
-        repolink = "https://github.com/bhftbootcamp/Serde.jl",
-        canonical = "https://bhftbootcamp.github.io/Serde.jl",
-        edit_link = "master",
-        assets = String["assets/favicon.ico"],
-        sidebar_sitename = true,
-    ),
+    format = Documenter.HTML(),
     pages = [
         "Home" => "index.md",
         "API Reference" => [
             "pages/json.md",
             "pages/toml.md",
-            "pages/csv.md",
-            "pages/query.md",
-            "pages/xml.md",
-            "pages/yaml.md",
             "pages/utils.md",
         ],
         "For Developers" => ["pages/extended_ser.md", "pages/extended_de.md"],
@@ -30,7 +20,9 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/bhftbootcamp/Serde.jl",
+    repo = "github.com/Heptazhou/Serde.jl",
     devbranch = "master",
+    devurl = "latest",
+    forcepush = true,
     push_preview = true,
 )

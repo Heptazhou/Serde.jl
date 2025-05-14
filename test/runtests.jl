@@ -1,7 +1,9 @@
 # runtests
 
+using Base: UUID
+using Exts: ODict, OSet
 using Serde
-using Test, Dates, NanoDates, UUIDs
+using Test, Dates, NanoDates
 
 include("Par/Par.jl")
 include("Ser/Ser.jl")

@@ -3,7 +3,8 @@ module ParJson
 export JsonSyntaxError
 export parse_json
 
-using JSON
+using Exts: ODict, OSet
+using JSON5: JSON
 
 """
     JsonSyntaxError <: Exception
@@ -53,7 +54,7 @@ Dict{String, Any} with 3 entries:
 """
 function parse_json end
 
-function parse_json(x::S; dict_type::Type{D} = Dict{String,Any}, kw...) where {S<:AbstractString,D<:AbstractDict}
+function parse_json(x::S; dict_type::Type{D} = ODict{String,Any}, kw...) where {S<:AbstractString,D<:AbstractDict}
     try
         JSON.parse(x; dicttype = dict_type, kw...)
     catch e

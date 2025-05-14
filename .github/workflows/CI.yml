@@ -1,81 +1,72 @@
 name: CI
-
 on:
+  workflow_dispatch: ~
+  pull_request:
+    branches:
+      - "master"
   push:
     branches:
-      - master
-    tags: ['*']
-  pull_request:
-  workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
-
+      - "master"
+    tags:
+      - "*"
+defaults:
+  run:
+    shell: bash
+env:
+  JULIA_NUM_THREADS: auto,auto
+  JULIA_PKG_USE_CLI_GIT: true
 jobs:
   test:
-    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
-    permissions:
-      actions: write
-      contents: read
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        version:
-          - '1'
-          - '1.8'
-          - '1.9'
-          - '1.10'
         os:
+          - windows-latest
           - ubuntu-latest
-        arch:
-          - x64
+          - macos-latest
+        julia-version:
+          - "min"
+          - "lts"
+          - "1"
+          - "pre"
+          - "nightly"
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: julia-actions/setup-julia@v2
         with:
-          version: ${{ matrix.version }}
-          arch: ${{ matrix.arch }}
-      - uses: julia-actions/cache@v2
+          show-versioninfo: true
+          version: ${{ matrix.julia-version }}
       - uses: julia-actions/julia-buildpkg@v1
-      - uses: julia-actions/julia-runtest@v1
-      - uses: julia-actions/julia-processcoverage@v1
-      - uses: codecov/codecov-action@v5
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          files: lcov.info
-
+          ignore-no-cache: true
+          localregistry: https://github.com/0h7z/0hjl.git
+      - uses: julia-actions/julia-runtest@v1
+      - uses: heptazhou/julia-codecov@v1
+      - uses: codecov/codecov-action@v3.1.5
+        with:
+          file: lcov.info
   docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
       statuses: write
-      actions: write
-      pull-requests: write
-    name: Documentation
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@latest
-      - uses: julia-actions/cache@v2
-      - name: Install dependencies
-        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(; path = pwd())); Pkg.instantiate();'
-      - name: Build and deploy
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: julia --project=docs/ docs/make.jl
-      - name: Make comment with preview link
-        if: ${{ github.event_name == 'pull_request' && github.event.action == 'opened'}}
-        uses: actions/github-script@v7
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: ':blue_book: A preview of the documentation will be [here](${{env.preview_url}}) soon'
-            })
+          persist-credentials: false
+      - uses: julia-actions/setup-julia@v2
+        with:
+          show-versioninfo: true
+          version: "1"
+      - uses: julia-actions/julia-buildpkg@v1
+        with:
+          ignore-no-cache: true
+          localregistry: https://github.com/0h7z/0hjl.git
+      - uses: julia-actions/julia-docdeploy@v1
         env:
-          preview_url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/previews/PR${{ github.event.number }}/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

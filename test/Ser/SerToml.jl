@@ -2,14 +2,14 @@
 
 @testset verbose = true "SerToml" begin
     @testset "Case №1: Dict to Toml" begin
-        exp_kvs = Dict(
+        exp_kvs = ODict(
             "bar" => "test",
-            "foo" => Dict(
+            "foo" => ODict(
                 "baz" => "exp_kvsi",
-                "conf" => Dict(
+                "conf" => ODict(
                     "boo" => "aaa",
-                    "monf" => Dict("abbr" => "ppp", "mint" => "coconut"),
-                    "tonf" => Dict("aqua" => "cyan"),
+                    "monf" => ODict("abbr" => "ppp", "mint" => "coconut"),
+                    "tonf" => ODict("aqua" => "cyan"),
                 ),
             ),
         )
@@ -23,35 +23,35 @@
           boo = "aaa"
 
             [foo.conf.monf]
-            mint = "coconut"
             abbr = "ppp"
+            mint = "coconut"
 
             [foo.conf.tonf]
             aqua = "cyan"
         """
         @test Serde.to_toml(exp_kvs) == exp_str
 
-        exp_kvs = Dict(
+        exp_kvs = ODict(
             "bar" => "test",
-            "foo" => Dict(
+            "foo" => ODict(
                 "baz" => :exp_kvsi,
-                :conf => Dict(
+                :conf => ODict(
                     "boo" => "aaa",
-                    "monf" => Dict("abbr" => "ppp", "mint" => "coconut"),
-                    "tonf" => Dict("aqua" => "cyan"),
+                    "monf" => ODict("abbr" => "ppp", "mint" => "coconut"),
+                    "tonf" => ODict("aqua" => "cyan"),
                 ),
             ),
         )
         @test Serde.to_toml(exp_kvs) == exp_str
 
-        exp_kvs = Dict(
+        exp_kvs = ODict(
             "bar" => "test",
-            123_456 => Dict(
+            123_456 => ODict(
                 "baz" => :exp_kvsi,
-                :conf => Dict(
+                :conf => ODict(
                     "boo" => "aaa",
-                    "monf" => Dict("abbr" => "ppp", "mint" => true),
-                    "tonf" => Dict("aqua" => "cyan"),
+                    "monf" => ODict("abbr" => "ppp", "mint" => true),
+                    "tonf" => ODict("aqua" => "cyan"),
                 ),
             ),
         )
@@ -65,8 +65,8 @@
           boo = "aaa"
 
             [123456.conf.monf]
-            mint = true
             abbr = "ppp"
+            mint = true
 
             [123456.conf.tonf]
             aqua = "cyan"
@@ -135,13 +135,13 @@
         age = 1
         """
 
-        @test Serde.to_toml(Dict("key" => [1, 2.2, "d"])) == "key = [1,2.2,\"d\"]\n"
+        @test Serde.to_toml(ODict("key" => [1, 2.2, "d"])) == "key = [1,2.2,\"d\"]\n"
         @test Serde.to_toml(
-            Dict("key" => [BarToml3(100, "ds"), Dict("name" => "imya", "age" => 1)]),
+            ODict("key" => [BarToml3(100, "ds"), ODict("name" => "imya", "age" => 1)]),
         ) == exp_str
 
         @test_throws "TomlSerializationError: mix simple and complex types" begin
-            Serde.to_toml(Dict("key" => ["1", "2", BarToml3(100, "ds")]))
+            Serde.to_toml(ODict("key" => ["1", "2", BarToml3(100, "ds")]))
         end
     end
 

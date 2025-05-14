@@ -2,8 +2,8 @@ module SerToml
 
 export to_toml
 
+using Base: UUID
 using Dates
-using UUIDs
 using ..Serde
 
 const DOUBLE_QUOTE = '"'

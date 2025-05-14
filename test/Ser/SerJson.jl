@@ -90,29 +90,29 @@
 
         struct JsonFoo5
             vector::Vector{Any}
-            dict::Dict{Any,Any}
+            dict::ODict{Any,Any}
             tuple::Tuple
             ntuple::NamedTuple
             pair::Pair
             timetype::TimeType
             enm::Num
-            set::Set
+            set::OSet
             uuid::UUID
         end
 
         exp_obj = JsonFoo5(
             [1, "one", 3.0],
-            Dict{Any,Any}(:a => 1, "b" => 2.0),
+            ODict{Any,Any}(:a => 1, "b" => 2.0),
             (4, :b, "6"),
             (a = 1, b = 2),
             Pair(:e, 5),
             Date("2022-01-01"),
             num1,
-            Set([1, 2]),
+            OSet([1, 2]),
             UUID("764c061c-fdf6-4149-9924-d3b4b3e416d2"),
         )
         exp_str = """{"vector":[1,"one",3.0],"dict":{"a":1,"b":2.0},"tuple":[4,"b","6"],\
-        "ntuple":{"a":1,"b":2},"pair":{"e":5},"timetype":"2022-01-01","enm":"num1","set":[2,1],\
+        "ntuple":{"a":1,"b":2},"pair":{"e":5},"timetype":"2022-01-01","enm":"num1","set":[1,2],\
         "uuid":"764c061c-fdf6-4149-9924-d3b4b3e416d2"}"""
         @test Serde.to_json(exp_obj) === exp_str
     end
@@ -165,7 +165,7 @@
         end
 
         struct SerJsonObject
-            set::Set{String}
+            set::OSet{String}
             pair::Pair
             datatype::DataType
             onemoreobject::OneMoreObject
@@ -182,7 +182,7 @@
         obj = SerJsonFoo1(
             34,
             "sertupe",
-            SerJsonObject(Set(["a", "b"]), :a => 2, SerJsonFoo1, OneMoreObject(true, nothing)),
+            SerJsonObject(OSet(["a", "b"]), :a => 2, SerJsonFoo1, OneMoreObject(true, nothing)),
             [1, 2, 3],
             ones(2, 3)
         )
@@ -192,8 +192,8 @@
                                              "text":"sertupe",
                                              "object":{
                                                "set":[
-                                                 "b",
-                                                 "a"
+                                                 "a",
+                                                 "b"
                                                ],
                                                "pair":{
                                                  "a":2
@@ -231,7 +231,7 @@
             x::String
         end
 
-        exp_obj = Dict{String,Any}("x" => "dsds\ndsds\ndssd")
+        exp_obj = ODict{String,Any}("x" => "dsds\ndsds\ndssd")
         exp_str = """
             dsds
             dsds
@@ -242,7 +242,7 @@
             x::Symbol
         end
 
-        exp_obj = Dict{String,Any}("x" => "dsds\ndsds\ndssd")
+        exp_obj = ODict{String,Any}("x" => "dsds\ndsds\ndssd")
         exp_str = """
             dsds
             dsds

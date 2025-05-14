@@ -94,15 +94,3 @@ using .DeJson
 
 include("DeToml.jl")
 using .DeToml
-
-include("DeQuery.jl")
-using .DeQuery
-
-include("DeCsv.jl")
-using .DeCsv
-
-include("DeXml.jl")
-using .DeXml
-
-include("DeYaml.jl")
-using .DeYaml

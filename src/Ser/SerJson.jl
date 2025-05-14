@@ -3,8 +3,8 @@ module SerJson
 export to_json
 export to_pretty_json
 
+using Base: UUID
 using Dates
-using UUIDs
 using ..Serde
 
 const JSON_NULL = "null"

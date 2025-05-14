@@ -9,15 +9,15 @@
 
         Base.:(==)(l::Foo_def_ser, r::Foo_def_ser) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}()
+        exp_kvs = ODict{String,Any}()
         exp_obj = Foo_def_ser(1, 2)
         @test Serde.deser(Foo_def_ser, exp_kvs) == exp_obj
 
-        exp_kvs = Dict{String,Any}("first" => 19)
+        exp_kvs = ODict{String,Any}("first" => 19)
         exp_obj = Foo_def_ser(19, 2)
         @test Serde.deser(Foo_def_ser, exp_kvs) == exp_obj
 
-        exp_kvs = Dict{String,Any}("first" => 19)
+        exp_kvs = ODict{String,Any}("first" => 19)
         exp_obj = Foo_def_ser(19, 2)
         desered = Serde.deser(Foo_def_ser, exp_kvs)
         @test desered == exp_obj
@@ -35,7 +35,7 @@
 
         Base.:(==)(l::Foo_ser_de, r::Foo_ser_de) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}("a" => 11, "de-name" => 12)
+        exp_kvs = ODict{String,Any}("a" => 11, "de-name" => 12)
         exp_obj = Foo_ser_de(11, 12)
         desered = Serde.deser(Foo_ser_de, exp_kvs)
         @test desered == exp_obj
@@ -53,11 +53,11 @@
 
         Base.:(==)(l::Foo_de_def, r::Foo_de_def) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}()
+        exp_kvs = ODict{String,Any}()
         exp_obj = Foo_de_def(1, 2)
         @test Serde.deser(Foo_de_def, exp_kvs) == exp_obj
 
-        exp_kvs = Dict{String,Any}("first" => 3)
+        exp_kvs = ODict{String,Any}("first" => 3)
         exp_obj = Foo_de_def(3, 2)
         @test Serde.deser(Foo_de_def, exp_kvs) == exp_obj
     end
@@ -70,11 +70,11 @@
 
         Base.:(==)(l::Foo_ser_def, r::Foo_ser_def) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}()
+        exp_kvs = ODict{String,Any}()
         exp_obj = Foo_ser_def(1, 2)
         @test Serde.deser(Foo_ser_def, exp_kvs) == exp_obj
 
-        exp_kvs = Dict{String,Any}("a" => 19)
+        exp_kvs = ODict{String,Any}("a" => 19)
         exp_obj = Foo_ser_def(19, 2)
         desered = Serde.deser(Foo_ser_def, exp_kvs)
         @test desered == exp_obj
@@ -92,7 +92,7 @@
 
         Base.:(==)(l::Foo_def, r::Foo_def) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}()
+        exp_kvs = ODict{String,Any}()
         exp_obj = Foo_def(1, 2)
         @test Serde.deser(Foo_def, exp_kvs) == exp_obj
     end
@@ -105,7 +105,7 @@
 
         Base.:(==)(l::Foo_de, r::Foo_de) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}("first" => 19, "b" => 20)
+        exp_kvs = ODict{String,Any}("first" => 19, "b" => 20)
         exp_obj = Foo_de(19, 20)
         @test Serde.deser(Foo_de, exp_kvs) == exp_obj
     end
@@ -118,7 +118,7 @@
 
         Base.:(==)(l::Foo_ser, r::Foo_ser) = l.a == r.a && l.b == r.b
 
-        exp_kvs = Dict{String,Any}("a" => 19, "b" => 2)
+        exp_kvs = ODict{String,Any}("a" => 19, "b" => 2)
         exp_obj = Foo_ser(19, 2)
         desered = Serde.deser(Foo_ser, exp_kvs)
         @test desered == exp_obj

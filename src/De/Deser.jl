@@ -214,7 +214,7 @@ See also [`Serde.nulltype`](@ref), [`Serde.default_value`](@ref), [`Serde.isempt
 
 ## Examples:
 
-Let's make a custom type `Computer` with the following fields and constructor. 
+Let's make a custom type `Computer` with the following fields and constructor.
 ```julia
 struct Computer
     cpu::String
@@ -362,7 +362,7 @@ end
 (deser(::Type{T}, data::D)::T) where {T<:Missing,D<:Any} = throw(MethodError(deser, (T, data)))
 
 function deser(::NTupleType, ::Type{T}, data::AbstractDict{K,D})::T where {T<:NamedTuple,K,D}
-    target::Dict{Symbol,D} = Dict{Symbol,D}()
+    target::ODict{Symbol,D} = ODict{Symbol,D}()
     for (k, v) in data
         target[Symbol(k)] = v
     end
