@@ -8,7 +8,7 @@ using Dates
 using ..Serde
 
 const JSON_NULL = "null"
-const INDENT = "  "
+const INDENT = "\t"
 const NEEDESCAPE = Set(['"', '\\', '\b', '\f', '\n', '\r', '\t'])
 const DOUBLE_QUOTE = '"'
 
@@ -289,6 +289,7 @@ function to_pretty_json(x...; kw...)::String
     io = IOBuffer()
     try
         json_value!(io, x...; l = 1, kw...)
+        println(io)
         return String(take!(io))
     finally
         close(io)

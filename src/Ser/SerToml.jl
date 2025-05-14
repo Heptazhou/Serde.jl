@@ -76,7 +76,7 @@ function issimple(vec::AbstractVector{T})::Bool where {T}
 end
 
 function indent(level::Int64)::String
-    return "  "^(level > 0 ? level - 1 : 0)
+    return "\t"^(level > 0 ? level - 1 : 0)
 end
 
 function toml_pair(key, val::AbstractString; level::Int64 = 0, kw...)::String

@@ -188,42 +188,21 @@
         )
 
         @test Serde.to_pretty_json(obj) == """{
-                                             "value":34,
-                                             "text":"sertupe",
-                                             "object":{
-                                               "set":[
-                                                 "a",
-                                                 "b"
-                                               ],
-                                               "pair":{
-                                                 "a":2
-                                               },
-                                               "datatype":"SerJsonFoo1",
-                                               "onemoreobject":{
-                                                 "bool":true,
-                                                 "empty":null
-                                               }
-                                             },
-                                             "array":[
-                                               1,
-                                               2,
-                                               3
-                                             ],
-                                             "matrix":[
-                                               [
-                                                 1.0,
-                                                 1.0
-                                               ],
-                                               [
-                                                 1.0,
-                                                 1.0
-                                               ],
-                                               [
-                                                 1.0,
-                                                 1.0
-                                               ]
-                                             ]
-                                           }"""
+        \t"value":34,
+        \t"text":"sertupe",
+        \t"object":{
+        \t\t"set":[\n\t\t\t"a",\n\t\t\t"b"\n\t\t],
+        \t\t"pair":{\n\t\t\t"a":2\n\t\t},
+        \t\t"datatype":"SerJsonFoo1",
+        \t\t"onemoreobject":{\n\t\t\t"bool":true,\n\t\t\t"empty":null\n\t\t}
+        \t},
+        \t"array":[\n\t\t1,\n\t\t2,\n\t\t3\n\t],
+        \t"matrix":[
+        \t\t[\n\t\t\t1.0,\n\t\t\t1.0\n\t\t],
+        \t\t[\n\t\t\t1.0,\n\t\t\t1.0\n\t\t],
+        \t\t[\n\t\t\t1.0,\n\t\t\t1.0\n\t\t]
+        \t]
+        }\n"""
     end
 
     @testset "Case №9: Line break serialization" begin

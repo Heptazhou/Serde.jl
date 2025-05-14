@@ -19,15 +19,15 @@
         [foo]
         baz = "exp_kvsi"
 
-          [foo.conf]
-          boo = "aaa"
+        \t[foo.conf]
+        \tboo = "aaa"
 
-            [foo.conf.monf]
-            abbr = "ppp"
-            mint = "coconut"
+        \t\t[foo.conf.monf]
+        \t\tabbr = "ppp"
+        \t\tmint = "coconut"
 
-            [foo.conf.tonf]
-            aqua = "cyan"
+        \t\t[foo.conf.tonf]
+        \t\taqua = "cyan"
         """
         @test Serde.to_toml(exp_kvs) == exp_str
 
@@ -61,15 +61,15 @@
         [123456]
         baz = "exp_kvsi"
 
-          [123456.conf]
-          boo = "aaa"
+        \t[123456.conf]
+        \tboo = "aaa"
 
-            [123456.conf.monf]
-            abbr = "ppp"
-            mint = true
+        \t\t[123456.conf.monf]
+        \t\tabbr = "ppp"
+        \t\tmint = true
 
-            [123456.conf.tonf]
-            aqua = "cyan"
+        \t\t[123456.conf.tonf]
+        \t\taqua = "cyan"
         """
         @test Serde.to_toml(exp_kvs) == exp_str
     end
@@ -157,15 +157,15 @@
         some_server_refresexp_kvs_token_name = "App"
         some_server_session_timeout = 86400
 
-          [[some_config.some_accounts]]
-          username = "test1"
-          password = "sexp_kvsa256_79c12fd077a3996fd101b53b211b320acec4003fb"
-            [some_config.some_accounts.role]
+        \t[[some_config.some_accounts]]
+        \tusername = "test1"
+        \tpassword = "sexp_kvsa256_79c12fd077a3996fd101b53b211b320acec4003fb"
+        \t\t[some_config.some_accounts.role]
 
-          [[some_config.some_accounts]]
-          username = "test2"
-          password = "sexp_kvsa256_79c12fd077a3996fd101b53b211b320acec4003fb"
-            [some_config.some_accounts.role]
+        \t[[some_config.some_accounts]]
+        \tusername = "test2"
+        \tpassword = "sexp_kvsa256_79c12fd077a3996fd101b53b211b320acec4003fb"
+        \t\t[some_config.some_accounts.role]
         """
 
         parsed_toml = Serde.parse_toml(toml)
