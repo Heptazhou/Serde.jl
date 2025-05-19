@@ -6,7 +6,10 @@ version = "3.6.1"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Exts = "0b12d779-4123-4875-9d6c-e33c2e29e2c9"
 JSON5 = "275fdaeb-5887-4102-8704-6b08b28f797b"
-TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+TOML1 = "fa162d0f-926c-4b52-bf0b-be9ec1b10275"
+
+[sources]
+TOML1 = {url = "https://github.com/Heptazhou/TOML1.jl"}
 
 [compat]
 Exts = "≥ 0.2.12"

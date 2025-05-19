@@ -14,7 +14,6 @@ defaults:
     shell: bash
 env:
   JULIA_NUM_THREADS: auto,auto
-  JULIA_PKG_USE_CLI_GIT: true
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -40,6 +39,12 @@ jobs:
         with:
           show-versioninfo: true
           version: ${{ matrix.julia-version }}
+      - run: |
+          raw"${{ matrix.julia-version }}" ∉ ["min", "lts"] ? exit() : using Pkg
+          pkg"registry add"
+          pkg"registry add https://github.com/0h7z/0hjl.git"
+          pkg"add https://github.com/Heptazhou/TOML1.jl"
+        shell: julia --color=yes --project {0}
       - uses: julia-actions/julia-buildpkg@v1
         with:
           ignore-no-cache: true

@@ -3,7 +3,7 @@ module ParToml
 export TomlSyntaxError
 export parse_toml
 
-using TOML
+using TOML1
 
 """
     TomlSyntaxError <: Exception
@@ -50,7 +50,7 @@ function parse_toml end
 
 function parse_toml(x::S; kw...) where {S<:AbstractString}
     try
-        TOML.parse(x; kw...)
+        TOML1.parse(x; kw...)
     catch e
         throw(TomlSyntaxError("invalid TOML syntax", e))
     end
