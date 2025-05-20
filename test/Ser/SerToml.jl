@@ -220,7 +220,7 @@
         \n[toml_ser_foo_5]
         first_date = 2024-07-13
         time = 14:41:59.316
-        second_date = 2024-01-23T14:42:14.316Z
+        second_date = 2024-01-23T14:42:14.316
         nanodate = "2024-01-23T14:42:14.316366122"
         """
     end
